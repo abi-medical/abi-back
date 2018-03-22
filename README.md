@@ -29,3 +29,12 @@ git clone https://github.com/abi-medical/abi-back
 cd abi-back
 pip install -r requirements.txt
 ```
+
+
+## Style guides
+
+### Before you push, make sure you git are configured to ignore all pyc files, you can configure a global gitignore following [this gist](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c) and in your current global gitignore file put this
+
+```
+*.pyc
+```
