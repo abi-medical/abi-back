@@ -9,14 +9,19 @@ To configure this project, please follow the next instructions:
 ### Assumptions
 
 - You already have [python 3.6](https://www.python.org/downloads/) installed in your local machine
-- You already have installed [virtualenvwrapper](http://virtualenvwrapper.readthedocs.io/en/latest/install.html) in your main python3 environment
 - You already have [git](https://git-scm.com/downloads) installed on your local machine
 - You already have installed [postgresql 9.6](https://www.postgresql.org/download/) installed on your local machine
 
 ### Create your virtualenv
 
+#### Using virtualenvwrapper
 ```shell
 mkvirtualenv -p python3.6 abi 
+```
+
+#### Using plain virtualenv
+```shell
+python -m venv abiveenv
 ```
 
 ### Clone the repo
@@ -30,10 +35,25 @@ cd abi-back
 pip install -r requirements.txt
 ```
 
+#### Troubleshooting
+If you're having problems with psycopg on windows, check [this page](http://www.stickpeople.com/projects/python/win-psycopg/), 
+download the right .exe file and try run
+  
+```bash
+easy_install psycopg2-2.6.2.win-<windows_architecture>-py<python_version>-pg9.5.3-release.exe
+```
+
+If you're having problems installing psycopg on ubuntu
+```bash
+apt install libpq-dev
+```
+
+
 
 ## Style guides
 
-### Before you push, make sure you git are configured to ignore all pyc files, you can configure a global gitignore following [this gist](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c) and in your current global gitignore file put this
+### Before you push, make sure you git are configured to ignore all pyc files, you can configure a global gitignore 
+following [this gist](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c) and in your current global gitignore file put this
 
 ```
 *.pyc
