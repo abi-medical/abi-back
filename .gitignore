@@ -2,3 +2,6 @@
 
 db.sqlite3
 abiveenv
+
+local_variables.sh
+pgdata

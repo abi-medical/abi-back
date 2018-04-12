@@ -12,6 +12,17 @@ To configure this project, please follow the next instructions:
 - You already have [git](https://git-scm.com/downloads) installed on your local machine
 - You already have installed [postgresql 9.6](https://www.postgresql.org/download/) installed on your local machine
 
+#### You can use PostgreSQL via Docker
+
+```bash
+docker run \
+    --name postgres \
+    -e POSTGRES_PASSWORD=<your_secret_password> \
+    -v ${PWD}/pgdata:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    -d postgres:9.6.8-alpine
+```
+
 ### Create your virtualenv
 
 #### Using virtualenvwrapper
@@ -48,7 +59,14 @@ If you're having problems installing psycopg on ubuntu
 apt install libpq-dev
 ```
 
+### Configure your postgres database
 
+Use your favorite postgreSQL client and execute the following commands 
+
+```sql
+CREATE role <your_role_name> noinherit login password '<your_password>';
+CREATE DATABASE <database_name> owner <your_role_name>;
+```
 
 ## Style guides
 
