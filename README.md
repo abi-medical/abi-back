@@ -64,8 +64,31 @@ apt install libpq-dev
 Use your favorite postgreSQL client and execute the following commands 
 
 ```sql
+# NoQA
 CREATE role <your_role_name> noinherit login password '<your_password>';
-CREATE DATABASE <database_name> owner <your_role_name>;
+CREATE USER <your_user_name> WITH PASSWORD '<your_password>';
+GRANT <your_role_name> to <your_user_name>;
+CREATE DATABASE <database_name> owner <your_user_name>;
+```
+
+### Start your django server
+
+Before run the project for the first time you must execute the following commands
+
+```bash
+python manage.py makemigrations
+python manage.py migrate_schemas --shared
+```
+
+Now as we does not want to leave database access information on our control version system
+We're going to store credentials in a file `local_variables.sh`. You can get an idea of the content
+looking at `local_variables.sh.copy`. Remeber that you must create your file and insert proper data
+
+Then execute your server in this order
+
+```bash
+source local_variables.sh
+ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py runserver 8000
 ```
 
 ## Style guides

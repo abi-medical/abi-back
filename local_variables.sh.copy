@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export POSTGRESQL_DATABASE_PASSWORD=yoursecretpassword
+
+export ABI_DATABASE_DATABASE=abi_databas
+export ABI_DATABASE_USERNAME=abi_user
+export ABI_DATABASE_PASSWORD=abi_password

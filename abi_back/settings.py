@@ -30,7 +30,14 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+# We must split Shared apps and Tenant apps to make django app complaint with django tenants
+# http://django-tenants.readthedocs.io/en/latest/install.html#configure-tenant-and-shared-applications
+SHARED_APPS = [
+    # Django tenants must be first line on the Shared apps Iterable
+    'django_tenants',
+    # After we must have the tenant configuration app
+    'abi_back.tenant_configuration',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +45,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+TENANT_APPS = [
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'django.contrib.messages',
+]
+
+INSTALLED_APPS = list(set(SHARED_APPS + TENANT_APPS))
+
+# We also define the Tenant model and Domain model
+TENANT_MODEL = 'tenant_configuration.Client'  # app.Model
+
+TENANT_DOMAIN_MODEL = 'tenant_configuration.Domain'  # app.Model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +74,9 @@ ROOT_URLCONF = 'abi_back.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [
+            os.path.join(BASE_DIR, "templates")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,13 +95,41 @@ WSGI_APPLICATION = 'abi_back.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+POSTGRESQL_DATABASE_NAME = os.environ.get("ABI_DATABASE_DATABASE", "")
+POSTGRESQL_DATABASE_USERNAME = os.environ.get("ABI_DATABASE_USERNAME", "")
+POSTGRESQL_DATABASE_PASSWORD = os.environ.get("ABI_DATABASE_PASSWORD", "")
+POSTGRESQL_DATABASE_HOST = os.environ.get("ABI_DATABASE_HOST", "localhost")
+POSTGRESQL_DATABASE_PORT = os.environ.get("ABI_DATABASE_HOST", "5432")
+
+# We must use django_tenants_postgresql_backend as DATABASE BACKEND
+# http://django-tenants.readthedocs.io/en/latest/install.html#basic-settings
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': POSTGRESQL_DATABASE_NAME,
+        'USER': POSTGRESQL_DATABASE_USERNAME,
+        'PASSWORD': POSTGRESQL_DATABASE_PASSWORD,
+        'HOST': POSTGRESQL_DATABASE_HOST,
+        'PORT': POSTGRESQL_DATABASE_PORT,
     }
 }
 
+print(DATABASES)
+
+
+
+# And also define django_tenants.routers.TenantSyncRouter as DATABASE_ROUTERS
+DATABASE_ROUTERS = [
+    'django_tenants.routers.TenantSyncRouter',
+]
+
+# This is default but we want to have explicit declaration of public schema name
+# http://django-tenants.readthedocs.io/en/latest/install.html#optional-settings
+PUBLIC_SCHEMA_NAME = 'public'
+
+
+# And we aso want to define a specific set of routes to manage tenant_configuration
+PUBLIC_SCHEMA_URLCONF = 'abi_back.tenant_configuration.urls.py'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
