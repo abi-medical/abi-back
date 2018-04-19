@@ -37,7 +37,7 @@ python -m venv abiveenv
 
 ### Clone the repo
 ```shell
-git clone https://github.com/abi-medical/abi-back
+git clone --recurse-submodules https://github.com/abi-medical/abi-back
 ```
 
 ### Install requirements
@@ -85,6 +85,13 @@ We're going to store credentials in a file `local_variables.sh`. You can get an 
 looking at `local_variables.sh.copy`. Remeber that you must create your file and insert proper data
 
 Then execute your server in this order
+
+
+## Update all submodules
+
+```bash
+git submodule update --recursive --remote
+```
 
 ```bash
 source local_variables.sh

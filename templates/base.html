@@ -26,6 +26,7 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
+      {% block nav %}
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
@@ -145,7 +146,7 @@
                         <li><a href="#level1_2">Level One</a>
                         </li>
                     </ul>
-                  </li>                  
+                  </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
@@ -170,6 +171,7 @@
             </div>
             <!-- /menu footer buttons -->
           </div>
+
         </div>
 
         <!-- top navigation -->
@@ -267,10 +269,12 @@
             </nav>
           </div>
         </div>
-        <!-- /top navigation -->
 
+        <!-- /top navigation -->
+        {% endblock %}
         <!-- page content -->
         <div class="right_col" role="main">
+          {% block content %}
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -320,6 +324,7 @@
               </div>
             </div>
           </div>
+          {% endblock %}
         </div>
         <!-- /page content -->
 

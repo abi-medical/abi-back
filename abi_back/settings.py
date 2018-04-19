@@ -44,6 +44,11 @@ SHARED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Contraslash Apps
+    'base',
+    'applications.authentication'
+
 ]
 
 TENANT_APPS = [
@@ -114,11 +119,8 @@ DATABASES = {
     }
 }
 
-print(DATABASES)
-
-
-
 # And also define django_tenants.routers.TenantSyncRouter as DATABASE_ROUTERS
+
 DATABASE_ROUTERS = [
     'django_tenants.routers.TenantSyncRouter',
 ]
@@ -172,3 +174,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+
+# AUTH Configuration
+AUTH_TEMPLATE_FOLDER = "custom_authentication"

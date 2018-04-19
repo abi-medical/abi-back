@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}
+    {% trans 'Log in' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container center">
+        <div class="row">
+            <h1>{% trans 'Log in' %} </h1>
+        </div>
+        {% if user.is_authenticated %}
+            {% if user.is_anonymous %}
+                {% trans 'Please activate your account'%}
+            {% else %}
+                {% blocktrans %}
+                    You are logged as {{ user }}
+                {% endblocktrans %}
+                <a href="{% url 'log_out' %}">{% trans 'Log out' %}</a>
+            {% endif %}
+        {%  else %}
+            <div class="row">
+
+                {% if form.errors %}
+                    <ul>
+                        {% for error in form.errors %}
+                            {{ form.non_field_errors }}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <form class="col s12" method="POST" action="{% url 'log_in' %}">
+                    {%  csrf_token %}
+
+                    {% for input in form %}
+                        <label for="{{ input.name }}">{{ input.label }}</label>
+                        {{ input }}
+                    {% endfor %}
+                    <button type="submit" class="btn waves-effect waves-light">
+                        {% trans 'Log in' %}
+                        <i class="mdi-content-send right"></i>
+                    </button>
+                    {% if next %}
+                            <input type="hidden" name="next" value="{{ next }}" />
+                    {% else %}
+                            <input type="hidden" name="next" value="/" />
+                    {% endif %}
+                    <br/>
+                    {% if password_reset_allowed %}
+                        <a class="left"  href="{% url 'password_reset' %}">
+                           {% trans 'Forgot password?' %}
+                        </a>
+                    {% endif %}
+                    {% if registration_allowed %}
+                        <a class="right" href="{% url 'sign_up' %}">
+                            {% trans 'Sign up' %}
+                        </a>
+                    {% endif %}
+                    <!--<br/>-->
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
