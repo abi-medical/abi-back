@@ -81,8 +81,8 @@ python manage.py migrate_schemas --shared
 ```
 
 Now as we does not want to leave database access information on our control version system
-We're going to store credentials in a file `local_variables.sh`. You can get an idea of the content
-looking at `local_variables.sh.copy`. Remeber that you must create your file and insert proper data
+We're going to store credentials in a file `local_variables.sh`(Mac and Linux) or `local_variables.bat` (Windows) . You can get an idea of the content
+looking at `local_variables.sh.copy` or `loca_variables.bat.copy`. Remeber that you must create your file and insert proper data
 
 Then execute your server in this order
 

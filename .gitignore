@@ -4,4 +4,5 @@ db.sqlite3
 abiveenv
 
 local_variables.sh
+local_variables.bat
 pgdata
