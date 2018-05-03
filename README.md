@@ -64,10 +64,7 @@ apt install libpq-dev
 Use your favorite postgreSQL client and execute the following commands 
 
 ```sql
-# NoQA
 CREATE role <your_role_name> noinherit login password '<your_password>';
-CREATE USER <your_user_name> WITH PASSWORD '<your_password>';
-GRANT <your_role_name> to <your_user_name>;
 CREATE DATABASE <database_name> owner <your_user_name>;
 ```
 
@@ -78,6 +75,7 @@ Before run the project for the first time you must execute the following command
 ```bash
 python manage.py makemigrations
 python manage.py migrate_schemas --shared
+python manage.py configure_public_tenant
 ```
 
 Now as we does not want to leave database access information on our control version system
@@ -87,15 +85,22 @@ looking at `local_variables.sh.copy` or `loca_variables.bat.copy`. Remeber that 
 Then execute your server in this order
 
 
+```bash
+source local_variables.sh
+ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py runserver 8000
+```
+
+You may also want to create a super user on main schema to create new schemas
+
+```bash
+source local_variables.sh
+ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py createsuperuser
+```
+
 ## Update all submodules
 
 ```bash
 git submodule update --recursive --remote
-```
-
-```bash
-source local_variables.sh
-ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py runserver 8000
 ```
 
 ## Style guides

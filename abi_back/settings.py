@@ -25,7 +25,12 @@ SECRET_KEY = '49x7rj859gjcz(a*dj!75+8lrusnd3(_th@_w!b*3dzu5=&z-q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+MAIN_HOST = os.environ.get("MAIN_HOST", "localhost")
+
+ALLOWED_HOSTS = [
+    MAIN_HOST,
+    # ".localhost"
+]
 
 
 # Application definition
@@ -47,7 +52,12 @@ SHARED_APPS = [
 
     # Contraslash Apps
     'base',
-    'applications.authentication'
+    'applications.authentication',
+
+    # Custom apps
+    'applications.core',
+
+
 
 ]
 
@@ -55,16 +65,24 @@ TENANT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.messages',
+
+    # Contraslash Apps
+    'applications.authentication',
+
+    # Custom apps
+
+    'applications.core',
 ]
 
 INSTALLED_APPS = list(set(SHARED_APPS + TENANT_APPS))
 
 # We also define the Tenant model and Domain model
-TENANT_MODEL = 'tenant_configuration.Client'  # app.Model
+TENANT_MODEL = 'tenant_configuration.Tenant'  # app.Model
 
 TENANT_DOMAIN_MODEL = 'tenant_configuration.Domain'  # app.Model
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,7 +149,7 @@ PUBLIC_SCHEMA_NAME = 'public'
 
 
 # And we aso want to define a specific set of routes to manage tenant_configuration
-PUBLIC_SCHEMA_URLCONF = 'abi_back.tenant_configuration.urls.py'
+PUBLIC_SCHEMA_URLCONF = 'abi_back.tenant_configuration.urls'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
