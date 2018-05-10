@@ -29,7 +29,9 @@ MAIN_HOST = os.environ.get("MAIN_HOST", "localhost")
 
 ALLOWED_HOSTS = [
     MAIN_HOST,
+    ".{}".format(MAIN_HOST)
     # ".localhost"
+
 ]
 
 
@@ -196,3 +198,4 @@ STATICFILES_DIRS = [
 
 # AUTH Configuration
 AUTH_TEMPLATE_FOLDER = "custom_authentication"
+LOGIN_URL = "log_in"

@@ -1,7 +1,13 @@
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django import http
+
 
 from base import views as base_views
+
+from applications.authentication import (
+    mixins as authentication_mixins
+)
 
 from .. import (
     models,
@@ -10,7 +16,7 @@ from .. import (
 )
 
 
-class List(LoginRequiredMixin, base_views.BaseListView):
+class List(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseListView):
     """
     List all Administrators
     """
@@ -20,18 +26,21 @@ class List(LoginRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateView):
+class Create(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseCreateView):
     """
     Create a Administrator
     """
     model = models.Administrator
-    permission_required = (
-        '..add_administrator'
-    )
-    fields = '__all__'
+    fields = None
+    form_class = forms.Administrator
 
     def __init__(self):
         super(Create, self).__init__()
+
+    def form_valid(self, form=None):
+        self.object = form.save()
+
+        return http.HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse_lazy(conf.ADMINISTRATOR_DETAIL_URL_NAME, kwargs={
@@ -39,7 +48,7 @@ class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateV
         })
 
 
-class Detail(LoginRequiredMixin, base_views.BaseDetailView):
+class Detail(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseDetailView):
     """
     Detail of a Administrator
     """
@@ -49,15 +58,13 @@ class Detail(LoginRequiredMixin, base_views.BaseDetailView):
         super(Detail, self).__init__()
 
 
-class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateView):
+class Update(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseUpdateView):
     """
     Update a Administrator
     """
     model = models.Administrator
-    fields = '__all__'
-    permission_required = (
-        '..change_administrator'
-    )
+    fields = None
+    form_class = forms.Administrator
 
     def __init__(self):
         super(Update, self).__init__()
@@ -68,14 +75,11 @@ class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateV
         })
 
 
-class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteView):
+class Delete(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseDeleteView):
     """
     Delete a Administrator
     """
     model = models.Administrator
-    permission_required = (
-        '..delete_administrator'
-    )
 
     def __init__(self):
         super(Delete, self).__init__()

@@ -35,3 +35,65 @@ urlpatterns += [
     ),
 ]
 
+from .views import specialist
+
+urlpatterns += [
+    # specialist
+    url(
+        '^specialist/$',
+        specialist.List.as_view(),
+        name=conf.SPECIALIST_LIST_URL_NAME
+    ),
+    url(
+        '^specialist/create/$',
+        specialist.Create.as_view(),
+        name=conf.SPECIALIST_CREATE_URL_NAME
+    ),
+    url(
+        '^specialist/(?P<pk>\d+)/$',
+        specialist.Detail.as_view(),
+        name=conf.SPECIALIST_DETAIL_URL_NAME
+    ),
+    url(
+        '^specialist/(?P<pk>\d+)/update/$',
+        specialist.Update.as_view(),
+        name=conf.SPECIALIST_UPDATE_URL_NAME
+    ),
+    url(
+        '^specialist/(?P<pk>\d+)/delete/$',
+        specialist.Delete.as_view(),
+        name=conf.SPECIALIST_DELETE_URL_NAME
+    ),
+]
+
+from .views import patient
+
+urlpatterns += [
+    # patient
+    url(
+        '^patient/$',
+        patient.List.as_view(),
+        name=conf.PATIENT_LIST_URL_NAME
+    ),
+    url(
+        '^patient/create/$',
+        patient.Create.as_view(),
+        name=conf.PATIENT_CREATE_URL_NAME
+    ),
+    url(
+        '^patient/(?P<pk>\d+)/$',
+        patient.Detail.as_view(),
+        name=conf.PATIENT_DETAIL_URL_NAME
+    ),
+    url(
+        '^patient/(?P<pk>\d+)/update/$',
+        patient.Update.as_view(),
+        name=conf.PATIENT_UPDATE_URL_NAME
+    ),
+    url(
+        '^patient/(?P<pk>\d+)/delete/$',
+        patient.Delete.as_view(),
+        name=conf.PATIENT_DELETE_URL_NAME
+    ),
+]
+
