@@ -2,7 +2,10 @@
 
 db.sqlite3
 abiveenv
+abienv
 
 local_variables.sh
 local_variables.bat
 pgdata
+
+__pycache__

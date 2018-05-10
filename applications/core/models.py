@@ -49,7 +49,7 @@ class Treatment(models.Model):
 class Procedure(models.Model):
     patient_fk = models.ForeignKey(Patient)
     specialist_fk = models.ForeignKey(Specialist)
-    treatment_fk = models.ForeignKey(Treatment)
+    treatment_fk = models.ForeignKey(Treatment, null=True)
     action = models.TextField()
 
 

@@ -90,12 +90,28 @@ source local_variables.sh
 ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py runserver 8000
 ```
 
+On windows do
+```
+call local_variables.bat
+./manage.py runserver 8000
+```
+
 You may also want to create a super user on main schema to create new schemas
 
 ```bash
 source local_variables.sh
 ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} ./manage.py createsuperuser
 ```
+
+After a superuser is created, next step is to create a tenant, go to http://localhost:8000/tenant and create a first tenant.
+
+Now we need to create a super user for this tenant, execute
+```
+python manage.py create_tenant_superuser
+```
+
+and go to http://<tenant_name>.localhost:8000
+
 
 ## Update all submodules
 
