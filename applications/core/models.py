@@ -58,4 +58,14 @@ class Observation(models.Model):
     procedure = models.ForeignKey(Procedure)
     observation = models.TextField()
 
+class Machine(models.Model):
+
+    url_name = conf.MACHINE_DETAIL_URL_NAME
+    def __init__(self, *args, **kwargs):
+        super(Machine, self).__init__(*args, *kwargs)
+    name = models.TextField()
+    description = models.TextField()
+    type = models.TextField()
+    code = models.TextField()
+
 

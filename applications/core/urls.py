@@ -97,3 +97,35 @@ urlpatterns += [
     ),
 ]
 
+from .views import machine
+
+urlpatterns += [
+    # machine
+    url(
+        '^machine/$',
+        machine.List.as_view(),
+        name=conf.MACHINE_LIST_URL_NAME
+    ),
+    url(
+        '^machine/create/$',
+        machine.Create.as_view(),
+        name=conf.MACHINE_CREATE_URL_NAME
+    ),
+    url(
+        '^machine/(?P<pk>\d+)/$',
+        machine.Detail.as_view(),
+        name=conf.MACHINE_DETAIL_URL_NAME
+    ),
+    url(
+        '^machine/(?P<pk>\d+)/update/$',
+        machine.Update.as_view(),
+        name=conf.MACHINE_UPDATE_URL_NAME
+    ),
+    url(
+        '^machine/(?P<pk>\d+)/delete/$',
+        machine.Delete.as_view(),
+        name=conf.MACHINE_DELETE_URL_NAME
+    ),
+]
+
+

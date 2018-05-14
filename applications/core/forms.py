@@ -47,3 +47,25 @@ class Patient(forms.ModelForm):
             'password',
             'specialist_fk'
         ]
+
+class Machine(forms.ModelForm):
+    class Meta:
+        model = models.Machine
+        fields = [
+            'name',
+            'description',
+            'type',
+            'code'
+        ]
+        widgets={
+            'name': forms.TextInput(attrs={'class': 'form-group'}),
+            'description': forms.TextInput(attrs={'class': 'form-group'}),
+            'type': forms.TextInput(attrs={'class': 'form-group'}),
+            'code': forms.TextInput(attrs={'class': 'form-group'}),
+
+        }
+    def save(self, commit=True):
+        machine = super(Machine, self).save(commit=False)
+        if commit:
+            machine.save()
+        return machine
