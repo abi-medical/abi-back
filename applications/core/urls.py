@@ -50,6 +50,11 @@ urlpatterns += [
         name=conf.SPECIALIST_CREATE_URL_NAME
     ),
     url(
+        '^specialist/patients/$',
+        specialist.ListWithPatients.as_view(),
+        name=conf.SPECIALIST_WITH_PATIENTS_URL_NAME
+    ),
+    url(
         '^specialist/(?P<pk>\d+)/$',
         specialist.Detail.as_view(),
         name=conf.SPECIALIST_DETAIL_URL_NAME

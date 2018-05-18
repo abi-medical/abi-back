@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Specialist</th>
+                          <th>Patients</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for element in list %}
+
+                            <tr>
+                              <th scope="row">{{ forloop.counter }}</th>
+                              <td>{{ element }}</td>
+                              <td>{{ element.patients|length }}</td>
+                            </tr>
+                        {% endfor %}
+
+                      </tbody>
+                    </table>
+        </div>
+    </div>
+{% endblock %}

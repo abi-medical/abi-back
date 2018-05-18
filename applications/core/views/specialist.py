@@ -79,3 +79,15 @@ class Delete(mixins.Administrator, base_views.BaseDeleteView):
 
     def get_success_url(self):
         return reverse_lazy(conf.SPECIALIST_LIST_URL_NAME)
+
+
+class ListWithPatients(List):
+    template_name = "core/specialist/list_with_patients.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ListWithPatients, self).get_context_data(**kwargs)
+
+        for specialist in context[self.context_object_name]:
+            specialist.patients = models.Patient.objects.filter(specialist_fk=specialist)
+
+        return context
