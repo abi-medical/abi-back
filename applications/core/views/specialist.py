@@ -91,3 +91,4 @@ class ListWithPatients(List):
             specialist.patients = models.Patient.objects.filter(specialist_fk=specialist)
 
         return context
+
