@@ -14,7 +14,7 @@ pipeline:
     image: contraslash/alpine-psycopg2
     secrets: [ABI_DATABASE_HOST, ABI_DATABASE_DATABASE, ABI_DATABASE_USERNAME, ABI_DATABASE_PASSWORD, AWS_STORAGE_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
-      - pip install -r requirements.txt
+      - pip install -r requirements_test.txt
       - python manage.py test
 
   compile:
