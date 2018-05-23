@@ -23,6 +23,8 @@ pipeline:
       secrets: [ docker_username, docker_password ]
       registry: registry.contraslash.com:5000
       tags: [latest, "${DRONE_COMMIT_SHA:0:8}"]
+      when:
+        branch: [env/staging]
 
   deploy:
     image: appleboy/drone-ssh
