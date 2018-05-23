@@ -69,6 +69,7 @@ TENANT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.messages',
+    'abi_back.tenant_configuration.custom_dts_test_app',
 
     # Contraslash Apps
     'applications.authentication',

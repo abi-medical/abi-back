@@ -64,8 +64,11 @@ apt install libpq-dev
 Use your favorite postgreSQL client and execute the following commands 
 
 ```sql
-CREATE role <your_role_name> noinherit login password '<your_password>';
+CREATE role <your_user_name> noinherit login password '<your_password>';
 CREATE DATABASE <database_name> owner <your_user_name>;
+ALTER USER <your_user_name> CREATEDB;
+-- To run <your_user_name> must be superuser and this is so dangerous
+ALTER USER <your_user_name> superuser;
 ```
 
 ### Start your django server
