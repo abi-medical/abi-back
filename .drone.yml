@@ -5,9 +5,9 @@ clone:
     # secrets: [DRONE_NETRC_USERNAME]
     clone_mode: oauth
     skip_verify: true
-    environment:
-      - DRONE_NETRC_MACHINE=git.contraslash.com
-      - DRONE_NETRC_PASSWORD=x-oauth-basic
+#    environment:
+#      - DRONE_NETRC_MACHINE=git.contraslash.com
+#      - DRONE_NETRC_PASSWORD=x-oauth-basic
 
 pipeline:
   test:
@@ -15,7 +15,8 @@ pipeline:
     commands:
       - pip install -r requirements.txt
       - python manage.py test
-
+    when:
+        branch: [ env/staging ]
 
   compile:
       image: plugins/docker
