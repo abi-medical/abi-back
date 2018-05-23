@@ -38,7 +38,7 @@ pipeline:
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.contraslash.com:5000
       - docker pull registry.contraslash.com:5000/contraslash/abi-back
       - docker service rm abi-back
-      - docker service create --name albacora --label traefik.port=8000 --network traefik-network --env ABI_DATABASE_HOST=${ABI_DATABASE_HOST} --env ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} --env ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} --env ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} --env AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME} --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} registry.contraslash.com:5000/contraslash/abi-back
+      - docker service create --name abi --label traefik.port=8000 --network traefik-network --env ABI_DATABASE_HOST=${ABI_DATABASE_HOST} --env ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} --env ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} --env ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} --env AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME} --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} registry.contraslash.com:5000/contraslash/abi-back
     when:
       branch: [env/staging]
 

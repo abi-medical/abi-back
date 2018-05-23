@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '49x7rj859gjcz(a*dj!75+8lrusnd3(_th@_w!b*3dzu5=&z-q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ENV = os.environ.get('ENV', "DEVELOPMENT")
+DEBUG = os.environ.get('DEBUG', "False") == "True"
 
 MAIN_HOST = os.environ.get("MAIN_HOST", "localhost")
 
@@ -59,8 +60,9 @@ SHARED_APPS = [
     # Custom apps
     'applications.core',
 
-
-
+    # Third party apps
+    'raven.contrib.django.raven_compat',
+    'storages'
 ]
 
 TENANT_APPS = [
@@ -203,3 +205,6 @@ STATICFILES_DIRS = [
 AUTH_TEMPLATE_FOLDER = "custom_authentication"
 LOGIN_URL = "log_in"
 LOGIN_REDIRECT_URL = "/"
+
+if ENV == "STAGING":
+    from abi_back.settings_staging import *
