@@ -12,7 +12,8 @@ from applications.authentication import (
 from .. import (
     models,
     forms,
-    conf
+    conf,
+    mixins
 )
 
 
@@ -26,21 +27,24 @@ class List(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseListVie
         super(List, self).__init__()
 
 
-class Create(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseCreateView):
+class Create(
+    authentication_mixins.SuperAdminRequiredMixin,
+    mixins.AddPermissionsOnSave,
+    base_views.BaseCreateView,
+):
     """
     Create a Administrator
     """
     model = models.Administrator
     fields = None
     form_class = forms.Administrator
+    permissions_to_add = [
+        'add_patient',
+        'add_specialist'
+    ]
 
     def __init__(self):
         super(Create, self).__init__()
-
-    def form_valid(self, form=None):
-        self.object = form.save()
-
-        return http.HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse_lazy(conf.ADMINISTRATOR_DETAIL_URL_NAME, kwargs={

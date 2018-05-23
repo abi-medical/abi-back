@@ -100,6 +100,11 @@ urlpatterns += [
         patient.Delete.as_view(),
         name=conf.PATIENT_DELETE_URL_NAME
     ),
+    url(
+        '^patient/(?P<pk_patient>\d+)/add-procedure/$',
+        patient.AddProcedure.as_view(),
+        name=conf.PATIENT_ADD_PROCEDURE_URL_NAME
+    ),
 ]
 
 from .views import machine
@@ -133,4 +138,66 @@ urlpatterns += [
     ),
 ]
 
+
+from .views import treatment
+
+urlpatterns += [
+    # treatment
+    url(
+        '^treatment/$',
+        treatment.List.as_view(),
+        name=conf.TREATMENT_LIST_URL_NAME
+    ),
+    url(
+        '^treatment/create/$',
+        treatment.Create.as_view(),
+        name=conf.TREATMENT_CREATE_URL_NAME
+    ),
+    url(
+        '^treatment/(?P<pk>\d+)/$',
+        treatment.Detail.as_view(),
+        name=conf.TREATMENT_DETAIL_URL_NAME
+    ),
+    url(
+        '^treatment/(?P<pk>\d+)/update/$',
+        treatment.Update.as_view(),
+        name=conf.TREATMENT_UPDATE_URL_NAME
+    ),
+    url(
+        '^treatment/(?P<pk>\d+)/delete/$',
+        treatment.Delete.as_view(),
+        name=conf.TREATMENT_DELETE_URL_NAME
+    ),
+]
+
+from .views import procedure
+
+urlpatterns += [
+    # procedure
+    url(
+        '^procedure/$',
+        procedure.List.as_view(),
+        name=conf.PROCEDURE_LIST_URL_NAME
+    ),
+    url(
+        '^procedure/create/$',
+        procedure.Create.as_view(),
+        name=conf.PROCEDURE_CREATE_URL_NAME
+    ),
+    url(
+        '^procedure/(?P<pk>\d+)/$',
+        procedure.Detail.as_view(),
+        name=conf.PROCEDURE_DETAIL_URL_NAME
+    ),
+    url(
+        '^procedure/(?P<pk>\d+)/update/$',
+        procedure.Update.as_view(),
+        name=conf.PROCEDURE_UPDATE_URL_NAME
+    ),
+    url(
+        '^procedure/(?P<pk>\d+)/delete/$',
+        procedure.Delete.as_view(),
+        name=conf.PROCEDURE_DELETE_URL_NAME
+    ),
+]
 

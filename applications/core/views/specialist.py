@@ -21,13 +21,21 @@ class List(mixins.Administrator, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, base_views.BaseCreateView):
+class Create(
+    mixins.Administrator,
+    mixins.AddPermissionsOnSave,
+    base_views.BaseCreateView,
+):
     """
     Create a Specialist
     """
     model = models.Specialist
     fields = None
     form_class = forms.Specialist
+    permissions_to_add = [
+        'add_patient',
+        'add_procedure'
+    ]
 
     def __init__(self):
         super(Create, self).__init__()

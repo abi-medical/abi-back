@@ -38,7 +38,7 @@ class Specialist(Administrator):
         model = models.Specialist
 
 
-class Patient(forms.ModelForm):
+class Patient(Administrator):
 
     class Meta(Administrator.Meta):
         model = models.Patient
@@ -47,6 +47,7 @@ class Patient(forms.ModelForm):
             'password',
             'specialist_fk'
         ]
+
 
 class Machine(forms.ModelForm):
     class Meta:
@@ -57,15 +58,30 @@ class Machine(forms.ModelForm):
             'type',
             'code'
         ]
-        widgets={
+        widgets = {
             'name': forms.TextInput(attrs={'class': 'form-group'}),
             'description': forms.TextInput(attrs={'class': 'form-group'}),
             'type': forms.TextInput(attrs={'class': 'form-group'}),
             'code': forms.TextInput(attrs={'class': 'form-group'}),
-
         }
-    def save(self, commit=True):
-        machine = super(Machine, self).save(commit=False)
-        if commit:
-            machine.save()
-        return machine
+
+
+class Treatment(forms.ModelForm):
+    class Meta:
+        model = models.Treatment
+        fields = '__all__'
+
+
+class Procedure(forms.ModelForm):
+    class Meta:
+        model = models.Procedure
+        fields = '__all__'
+
+
+class ProcedureNoPatientNoSpecialist(forms.ModelForm):
+    class Meta:
+        model = models.Procedure
+        fields = [
+            'treatment_fk',
+            'action'
+        ]

@@ -41,9 +41,31 @@ class PatientAssignHistory(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
+class Machine(models.Model):
+
+    name = models.TextField()
+    description = models.TextField()
+    type = models.TextField()
+    code = models.TextField()
+
+    url_name = conf.MACHINE_DETAIL_URL_NAME
+
+    def __init__(self, *args, **kwargs):
+        super(Machine, self).__init__(*args, *kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Treatment(models.Model):
     name = models.TextField()
     description = models.TextField()
+    machine = models.ForeignKey(Machine, null=True, blank=True)
+
+    url_name = conf.TREATMENT_DETAIL_URL_NAME
+
+    def __str__(self):
+        return self.name
 
 
 class Procedure(models.Model):
@@ -52,20 +74,14 @@ class Procedure(models.Model):
     treatment_fk = models.ForeignKey(Treatment, null=True)
     action = models.TextField()
 
+    url_name = conf.PROCEDURE_DETAIL_URL_NAME
+
+    def __str__(self):
+        return "{} {} {}".format(self.patient_fk, self.specialist_fk, self.treatment_fk)
+
 
 class Observation(models.Model):
     specialist_fk = models.ForeignKey(Specialist)
     procedure = models.ForeignKey(Procedure)
     observation = models.TextField()
-
-class Machine(models.Model):
-
-    url_name = conf.MACHINE_DETAIL_URL_NAME
-    def __init__(self, *args, **kwargs):
-        super(Machine, self).__init__(*args, *kwargs)
-    name = models.TextField()
-    description = models.TextField()
-    type = models.TextField()
-    code = models.TextField()
-
-
+    timestamp = models.DateTimeField(auto_now_add=True)

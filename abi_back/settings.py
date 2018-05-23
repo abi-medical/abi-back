@@ -64,6 +64,8 @@ SHARED_APPS = [
 ]
 
 TENANT_APPS = [
+    # Consider to delete from here
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.messages',
@@ -199,3 +201,4 @@ STATICFILES_DIRS = [
 # AUTH Configuration
 AUTH_TEMPLATE_FOLDER = "custom_authentication"
 LOGIN_URL = "log_in"
+LOGIN_REDIRECT_URL = "/"
