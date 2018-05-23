@@ -2,21 +2,20 @@ clone:
   git:
     image: plugins/git
     recursive: true
-    # secrets: [DRONE_NETRC_USERNAME]
+    secrets: [DRONE_NETRC_USERNAME]
     clone_mode: oauth
     skip_verify: true
-#    environment:
-#      - DRONE_NETRC_MACHINE=git.contraslash.com
-#      - DRONE_NETRC_PASSWORD=x-oauth-basic
+    environment:
+      - DRONE_NETRC_MACHINE=git.contraslash.com
+      - DRONE_NETRC_PASSWORD=x-oauth-basic
 
 pipeline:
   test:
     image: contraslash/alpine-psycopg2
+    secrets: [ ABI_DATABASE_DATABASE, ABI_DATABASE_USERNAME, ABI_DATABASE_PASSWORD, AWS_STORAGE_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
     commands:
       - pip install -r requirements.txt
       - python manage.py test
-    when:
-        branch: [ env/staging ]
 
   compile:
       image: plugins/docker
