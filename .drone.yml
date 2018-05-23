@@ -1,0 +1,41 @@
+clone:
+  git:
+    image: plugins/git
+    recursive: true
+    secrets: [DRONE_NETRC_USERNAME]
+    clone_mode: oauth
+    skip_verify: true
+    environment:
+      - DRONE_NETRC_MACHINE=git.contraslash.com
+      - DRONE_NETRC_PASSWORD=x-oauth-basic
+
+pipeline:
+  test:
+    image: contraslash/alpine-psycopg2
+    commands:
+      - pip install -r requirements.txt
+      - python manage.py test
+
+
+  compile:
+      image: plugins/docker
+      repo: registry.contraslash.com:5000/contraslash/abi-back
+      secrets: [ docker_username, docker_password ]
+      registry: registry.contraslash.com:5000
+      tags: [latest, "${DRONE_COMMIT_SHA:0:8}"]
+
+  deploy:
+    image: appleboy/drone-ssh
+    username: root
+    secrets: [ ssh_key, docker_username, docker_password, ABI_DATABASE_DATABASE, ABI_DATABASE_USERNAME, ABI_DATABASE_PASSWORD, AWS_STORAGE_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
+    envs: [docker_username, docker_password, ABI_DATABASE_DATABASE, ABI_DATABASE_USERNAME, ABI_DATABASE_PASSWORD, AWS_STORAGE_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY ]
+    host: abi.contraslash.com
+    port: 22
+    script:
+      - echo "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.contraslash.com:5000"
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD registry.contraslash.com:5000
+      - docker pull registry.contraslash.com:5000/contraslash/abi-back
+      - docker service rm abi-back
+      - docker service create --name albacora --label traefik.port=8000 --network traefik-network --env ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} --env ABI_DATABASE_USERNAME=${ABI_DATABASE_USERNAME} --env ABI_DATABASE_PASSWORD=${ABI_DATABASE_PASSWORD} --env AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME} --env AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} --env AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} registry.contraslash.com:5000/contraslash/abi-back
+    when:
+      branch: [env/staging]

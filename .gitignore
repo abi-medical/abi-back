@@ -6,6 +6,9 @@ abienv
 
 local_variables.sh
 local_variables.bat
+
+drone_secret_config.sh
+
 pgdata
 
 __pycache__
