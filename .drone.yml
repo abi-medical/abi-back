@@ -2,7 +2,7 @@ clone:
   git:
     image: plugins/git
     recursive: true
-    secrets: [DRONE_NETRC_USERNAME]
+    # secrets: [DRONE_NETRC_USERNAME]
     clone_mode: oauth
     skip_verify: true
     environment:
@@ -24,7 +24,7 @@ pipeline:
       registry: registry.contraslash.com:5000
       tags: [latest, "${DRONE_COMMIT_SHA:0:8}"]
       when:
-        branch: [env/staging]
+        branch: [ env/staging ]
 
   deploy:
     image: appleboy/drone-ssh
