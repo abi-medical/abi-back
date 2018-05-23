@@ -127,7 +127,7 @@ POSTGRESQL_DATABASE_NAME = os.environ.get("ABI_DATABASE_DATABASE", "")
 POSTGRESQL_DATABASE_USERNAME = os.environ.get("ABI_DATABASE_USERNAME", "")
 POSTGRESQL_DATABASE_PASSWORD = os.environ.get("ABI_DATABASE_PASSWORD", "")
 POSTGRESQL_DATABASE_HOST = os.environ.get("ABI_DATABASE_HOST", "localhost")
-POSTGRESQL_DATABASE_PORT = os.environ.get("ABI_DATABASE_HOST", "5432")
+POSTGRESQL_DATABASE_PORT = os.environ.get("ABI_DATABASE_PORT", "5432")
 
 # We must use django_tenants_postgresql_backend as DATABASE BACKEND
 # http://django-tenants.readthedocs.io/en/latest/install.html#basic-settings
