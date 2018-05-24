@@ -12,6 +12,7 @@ from .. import (
     models,
     forms,
     conf,
+    route_53_utils
 )
 
 
@@ -52,6 +53,10 @@ class Create(CustomLoginRequiredMixin, PermissionRequiredMixin, base_views.BaseC
         models.Domain.objects.create(
             domain="{}.{}".format(tenant.schema_name, settings.MAIN_HOST),
             tenant=tenant
+        )
+        route_53_utils.insert_record(
+            tenant.schema_name,
+            settings.AWS_ROUTE_53_DEFAULT_TENANT_IP
         )
         return http.HttpResponseRedirect(self.get_success_url())
 

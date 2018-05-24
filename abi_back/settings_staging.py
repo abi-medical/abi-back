@@ -1,5 +1,6 @@
 import os
 
+MAIN_HOST = os.environ.get("MAIN_HOST", "abi.contraslash.com")
 
 ADMINS = [
     ('ma0', 'ma0@contraslash.com'),
@@ -7,12 +8,19 @@ ADMINS = [
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+# S3 Configuration
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# Route 53 Configuration
+AWS_ROUTE_53_HOSTED_ZONE_ID = os.environ.get("AWS_ROUTE_53_HOSTED_ZONE_ID", "")
+AWS_ROUTE_53_ACCESS_KEY_ID = os.environ.get("AWS_ROUTE_53_ACCESS_KEY_ID", "")
+AWS_ROUTE_53_SECRET_ACCESS_KEY = os.environ.get("AWS_ROUTE_53_SECRET_ACCESS_KEY", "")
+AWS_ROUTE_53_DEFAULT_TENANT_IP = os.environ.get("AWS_ROUTE_53_DEFAULT_TENANT_IP", "")
+
+
 
 STATICFILES_LOCATION = 'abi_back/static'
 STATICFILES_STORAGE = 'abi_back.storages.StaticStorage'
