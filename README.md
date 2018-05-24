@@ -109,7 +109,8 @@ ABI_DATABASE_DATABASE=${ABI_DATABASE_DATABASE} ABI_DATABASE_USERNAME=${ABI_DATAB
 After a superuser is created, next step is to create a tenant, go to http://localhost:8000/tenant and create a first tenant.
 
 Now we need to create a super user for this tenant, execute
-```
+
+```bash
 python manage.py create_tenant_superuser
 ```
 

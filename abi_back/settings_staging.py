@@ -1,7 +1,5 @@
 import os
 
-MAIN_HOST = os.environ.get("MAIN_HOST", "abi.contraslash.com")
-
 ADMINS = [
     ('ma0', 'ma0@contraslash.com'),
 ]
