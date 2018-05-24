@@ -85,3 +85,11 @@ class ProcedureNoPatientNoSpecialist(forms.ModelForm):
             'treatment_fk',
             'action'
         ]
+
+
+class SimpleObservation(forms.ModelForm):
+    class Meta:
+        model = models.Observation
+        fields = [
+            'observation',
+        ]

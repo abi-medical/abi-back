@@ -1,9 +1,16 @@
 from django.conf.urls import url
 from django.contrib import admin
 
+# NoQA
+from django.views.generic import TemplateView
+
 from . import conf
 
 urlpatterns = [
+    # NoQA
+    url(
+        r'^$', TemplateView.as_view(template_name="base.html")
+    ),
     url(
         r'^admin/', admin.site.urls
     ),

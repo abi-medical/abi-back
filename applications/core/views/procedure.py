@@ -1,5 +1,7 @@
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import edit
+from django import http
 
 from base import views as base_views
 
@@ -39,14 +41,40 @@ class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateV
         })
 
 
-class Detail(LoginRequiredMixin, base_views.BaseDetailView):
+class Detail(LoginRequiredMixin, base_views.BaseDetailView, edit.ProcessFormView, edit.FormMixin):
     """
     Detail of a Procedure
     """
+    template_name = "core/procedure/detail.html"
     model = models.Procedure
+    form_class = forms.SimpleObservation
 
     def __init__(self):
         super(Detail, self).__init__()
+
+    def get_context_data(self, **kwargs):
+        context = super(Detail, self).get_context_data(**kwargs)
+
+        context['observations'] = models.Observation.objects.filter(
+            procedure=self.get_object()
+        )
+
+        return context
+
+    def form_valid(self, form):
+        observation = form.save(commit=False)
+        observation.procedure = self.get_object()
+        observation.specialist_fk = models.Specialist.objects.get(pk=self.request.user.id)
+        observation.save()
+        return http.HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy(
+            conf.PROCEDURE_DETAIL_URL_NAME,
+            kwargs={
+                'pk': self.get_object().id
+            }
+        )
 
 
 class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateView):

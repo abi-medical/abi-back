@@ -55,6 +55,8 @@ class Create(CustomLoginRequiredMixin, PermissionRequiredMixin, base_views.BaseC
             tenant=tenant
         )
         route_53_utils.insert_record(
+            settings.AWS_ROUTE_53_ACCESS_KEY_ID,
+            settings.AWS_ROUTE_53_SECRET_ACCESS_KEY,
             tenant.schema_name,
             settings.AWS_ROUTE_53_DEFAULT_TENANT_IP
         )

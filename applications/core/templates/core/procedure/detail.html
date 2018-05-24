@@ -37,38 +37,21 @@
                 </div>
             </div>
             <h2>
-                {% trans 'Procedures' %}
+                {% trans 'Observations' %}
             </h2>
-            <div class="table">
-                <div class="table">
-                    <table class="table table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    {% trans 'Treatment' %}
-                                </th>
-                                <th>
-                                    {% trans 'Action' %}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for procedure in procedures %}
-                                <tr>
-                                    <td>
-                                        <a href="{% url "PROCEDURE_detail" procedure.id  %}">
-                                            {{ procedure.treatment_fk }}
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ procedure.action }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <ul>
+                {% for observation in observations %}
+                    <li>
+                        {{ observation.observation }}
+                    </li>
+                {% endfor %}
+            </ul>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">{% trans 'Save' %}</button>
+            </form>
+
             <div class="actions">
                 <a href="javascript:window.history.back();">
                     <button class="btn btn-default">
@@ -83,11 +66,6 @@
                 <a href="update">
                     <button class="btn btn-primary">
                             {% trans 'Update' %}
-                    </button>
-                </a>
-                <a href="{{ add_procedure_reverse_url }}">
-                    <button class="btn btn-primary">
-                            {% trans 'Add Procedure' %}
                     </button>
                 </a>
             </div>
