@@ -117,8 +117,15 @@ python manage.py create_tenant_superuser
 and go to http://<tenant_name>.localhost:8000
 
 
-## Update all submodules
+## Use git with submodules
 
+For the first time:
+
+```bash
+git submodule update --init --recursive
+```
+
+Then to update modules
 ```bash
 git submodule update --recursive --remote
 ```
