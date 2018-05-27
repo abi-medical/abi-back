@@ -1,0 +1,60 @@
+{% load i18n %}
+<div class="menu_section">
+    <h3>{% trans 'Core' %}</h3>
+    <ul class="nav side-menu">
+        <li>
+            <a>
+                <i class="fa fa-home"></i>
+                {% trans 'Users' %}
+                <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu">
+                <li>
+                    {% if perms.core.add_administrator %}
+                        <a href="{% url 'ADMINISTRATOR_list' %}">
+                            {% trans 'Administrators' %}
+                        </a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if perms.core.add_specialist %}
+                        <a href="{% url 'SPECIALIST_list' %}">
+                            {% trans 'Specialists' %}
+                        </a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if perms.core.add_patient %}
+                        <a href="{% url 'PATIENT_list' %}">
+                            {% trans 'Patients' %}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a>
+                <i class="fa fa-home"></i>
+                {% trans 'Settings' %}
+                <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu">
+                <li>
+                    {% if perms.core.add_machine %}
+                        <a href="{% url 'MACHINE_list' %}">
+                            {% trans 'Machines' %}
+                        </a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if perms.core.add_treatment %}
+                        <a href="{% url 'TREATMENT_list' %}">
+                            {% trans 'Treatment' %}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+</div>
