@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import http
 
 from base import views as base_views
@@ -130,6 +130,6 @@ class AddProcedure(
         return reverse_lazy(
             conf.PATIENT_DETAIL_URL_NAME,
             kwargs={
-                'pk':self.get_patient().id
+                'pk': self.get_patient().id
             }
         )
