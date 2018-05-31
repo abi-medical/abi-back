@@ -22,9 +22,9 @@ pipeline:
       repo: registry.contraslash.com:5000/contraslash/abi-back
       secrets: [ docker_username, docker_password ]
       registry: registry.contraslash.com:5000
-      tags: [latest, "${DRONE_COMMIT_SHA:0:8}"]
+      tags: [latest, "${DRONE_COMMIT_SHA:0:8}", sprint1]
       when:
-        branch: [ env/staging ]
+        branch: [ env/staging, sprint1 ]
 
   deploy:
     image: appleboy/drone-ssh
