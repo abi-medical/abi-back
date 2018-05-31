@@ -115,6 +115,12 @@
             <!-- /top navigation -->
         <!-- page content -->
         <div class="right_col" role="main">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.level_tag }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
             {% block content %}
                 <div class="">
                     <div class="page-title">
