@@ -138,3 +138,8 @@ following [this gist](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c) an
 ```
 *.pyc
 ```
+
+
+```bash
+docker service update --label-add "traefik.frontend.rule=HostRegexp:abi.contraslash.com, {subdomain:[a-z0-9]+}.abi.contraslash.com" abi
+```

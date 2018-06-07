@@ -58,7 +58,8 @@ class Create(CustomLoginRequiredMixin, PermissionRequiredMixin, base_views.BaseC
             settings.AWS_ROUTE_53_ACCESS_KEY_ID,
             settings.AWS_ROUTE_53_SECRET_ACCESS_KEY,
             tenant.schema_name,
-            settings.AWS_ROUTE_53_DEFAULT_TENANT_IP
+            settings.AWS_ROUTE_53_DEFAULT_TENANT_IP,
+            settings.AWS_ROUTE_53_HOSTED_ZONE_ID
         )
         return http.HttpResponseRedirect(self.get_success_url())
 
