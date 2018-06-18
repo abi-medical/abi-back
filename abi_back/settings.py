@@ -25,6 +25,7 @@ SECRET_KEY = '49x7rj859gjcz(a*dj!75+8lrusnd3(_th@_w!b*3dzu5=&z-q'
 # SECURITY WARNING: don't run with debug turned on in production!
 ENV = os.environ.get('ENV', "DEVELOPMENT")
 DEBUG = os.environ.get('DEBUG', "False") == "True"
+ABI_REGISTER_ROUTE_53 = os.environ.get('DEBUG', "False") == "True"
 
 MAIN_HOST = os.environ.get("MAIN_HOST", "localhost")
 
@@ -62,7 +63,8 @@ SHARED_APPS = [
 
     # Third party apps
     'raven.contrib.django.raven_compat',
-    'storages'
+    'storages',
+    'rest_framework'
 ]
 
 TENANT_APPS = [

@@ -44,4 +44,13 @@ urlpatterns = [
             ""
         )
     ),
+
+    url(
+        r'^api/v1/',
+        (
+            "abi_back.urls_api",
+            "api",
+            ""
+        )
+    ),
 ]

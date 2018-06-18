@@ -139,7 +139,18 @@ following [this gist](https://gist.github.com/subfuzion/db7f57fff2fb6998a16c) an
 *.pyc
 ```
 
+## API
 
+We exposed an API, you can find documentation in `/api/v1/docs/`
+
+This works on a tenant host.
+
+Main endpoint is `/api/v1/core/machineinput/` which receives a 
+- `machine_instance`: int
+- `procedure`: int
+- `content`: text
+
+First two parameters are foreign keys to instances on db, last one is the machine report on UTF-8 encoding
 ```bash
 docker service update --label-add "traefik.frontend.rule=HostRegexp:abi.contraslash.com, {subdomain:[a-z0-9]+}.abi.contraslash.com" abi
 ```

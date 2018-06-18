@@ -1,0 +1,1 @@
+# This app is just to complain default test by tenant schemas

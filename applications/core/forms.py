@@ -93,3 +93,21 @@ class SimpleObservation(forms.ModelForm):
         fields = [
             'observation',
         ]
+class MachineInstance(forms.ModelForm):
+    class Meta:
+        model = models.MachineInstance
+        fields = '__all__'
+
+
+class MachineInput(forms.ModelForm):
+    class Meta:
+        model = models.MachineInput
+        fields = '__all__'
+
+
+class MachineInput(forms.ModelForm):
+    class Meta:
+        model = models.MachineInput
+        fields = '__all__'
+
+

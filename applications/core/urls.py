@@ -201,3 +201,66 @@ urlpatterns += [
     ),
 ]
 
+from .views import machine_instance
+
+urlpatterns += [
+    # machine_instance
+    url(
+        '^machineinstance/$',
+        machine_instance.List.as_view(),
+        name=conf.MACHINEINSTANCE_LIST_URL_NAME
+    ),
+    url(
+        '^machineinstance/create/$',
+        machine_instance.Create.as_view(),
+        name=conf.MACHINEINSTANCE_CREATE_URL_NAME
+    ),
+    url(
+        '^machineinstance/(?P<pk>\d+)/$',
+        machine_instance.Detail.as_view(),
+        name=conf.MACHINEINSTANCE_DETAIL_URL_NAME
+    ),
+    url(
+        '^machineinstance/(?P<pk>\d+)/update/$',
+        machine_instance.Update.as_view(),
+        name=conf.MACHINEINSTANCE_UPDATE_URL_NAME
+    ),
+    url(
+        '^machineinstance/(?P<pk>\d+)/delete/$',
+        machine_instance.Delete.as_view(),
+        name=conf.MACHINEINSTANCE_DELETE_URL_NAME
+    ),
+]
+
+from .views import machine_input
+
+urlpatterns += [
+    # machine_input
+    url(
+        '^machineinput/$',
+        machine_input.List.as_view(),
+        name=conf.MACHINEINPUT_LIST_URL_NAME
+    ),
+    url(
+        '^machineinput/create/$',
+        machine_input.Create.as_view(),
+        name=conf.MACHINEINPUT_CREATE_URL_NAME
+    ),
+    url(
+        '^machineinput/(?P<pk>\d+)/$',
+        machine_input.Detail.as_view(),
+        name=conf.MACHINEINPUT_DETAIL_URL_NAME
+    ),
+    url(
+        '^machineinput/(?P<pk>\d+)/update/$',
+        machine_input.Update.as_view(),
+        name=conf.MACHINEINPUT_UPDATE_URL_NAME
+    ),
+    url(
+        '^machineinput/(?P<pk>\d+)/delete/$',
+        machine_input.Delete.as_view(),
+        name=conf.MACHINEINPUT_DELETE_URL_NAME
+    ),
+]
+
+

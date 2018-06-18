@@ -54,13 +54,15 @@ class Create(CustomLoginRequiredMixin, PermissionRequiredMixin, base_views.BaseC
             domain="{}.{}".format(tenant.schema_name, settings.MAIN_HOST),
             tenant=tenant
         )
-        route_53_utils.insert_record(
-            settings.AWS_ROUTE_53_ACCESS_KEY_ID,
-            settings.AWS_ROUTE_53_SECRET_ACCESS_KEY,
-            tenant.schema_name,
-            settings.AWS_ROUTE_53_DEFAULT_TENANT_IP,
-            settings.AWS_ROUTE_53_HOSTED_ZONE_ID
-        )
+
+        if settings.ABI_REGISTER_ROUTE_53:
+            route_53_utils.insert_record(
+                settings.AWS_ROUTE_53_ACCESS_KEY_ID,
+                settings.AWS_ROUTE_53_SECRET_ACCESS_KEY,
+                tenant.schema_name,
+                settings.AWS_ROUTE_53_DEFAULT_TENANT_IP,
+                settings.AWS_ROUTE_53_HOSTED_ZONE_ID
+            )
         return http.HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):

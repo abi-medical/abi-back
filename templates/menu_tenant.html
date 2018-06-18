@@ -47,6 +47,13 @@
                     {% endif %}
                 </li>
                 <li>
+                    {% if perms.core.add_machine_instance %}
+                        <a href="{% url 'MACHINEINSTANCE_list' %}">
+                            {% trans 'Machine Instance' %}
+                        </a>
+                    {% endif %}
+                </li>
+                <li>
                     {% if perms.core.add_treatment %}
                         <a href="{% url 'TREATMENT_list' %}">
                             {% trans 'Treatment' %}

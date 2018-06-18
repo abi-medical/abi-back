@@ -85,3 +85,17 @@ class Observation(models.Model):
     procedure = models.ForeignKey(Procedure)
     observation = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+class MachineInstance(models.Model):
+    machine = models.ForeignKey(Machine)
+
+    activation_url = models.URLField()
+
+
+class MachineInput(models.Model):
+    machine_instance = models.ForeignKey(MachineInstance)
+    procedure = models.ForeignKey(Procedure)
+
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
