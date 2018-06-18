@@ -1,9 +1,6 @@
 import requests
 
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.utils.translation import ugettext_lazy as _
-
 
 from base import views as base_views
 
