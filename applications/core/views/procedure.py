@@ -5,6 +5,10 @@ from django import http
 
 from base import views as base_views
 
+from . import (
+    machine_instance
+)
+
 from .. import (
     models,
     forms,
@@ -59,6 +63,19 @@ class Detail(LoginRequiredMixin, base_views.BaseDetailView, edit.ProcessFormView
             procedure=self.get_object()
         )
 
+        context['machines'] = models.MachineInstance.objects.filter(
+            machine=self.get_object().treatment_fk.machine
+        )
+
+        for machine in context['machines']:
+            machine.activate_url_reverse = reverse_lazy(
+                conf.PROCEDURE_ACTIVATE_MACHINE_URL_NAME,
+                kwargs={
+                    'pk_procedure': self.get_object().id,
+                    'pk': machine.id
+                }
+            )
+
         return context
 
     def form_valid(self, form):
@@ -110,3 +127,12 @@ class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteV
 
     def get_success_url(self):
         return reverse_lazy(conf.PROCEDURE_LIST_URL_NAME)
+
+
+class Activate(machine_instance.Activate):
+
+    def dispatch(self, request, *args, **kwargs):
+        print("Before calling super")
+        p = super(Activate, self).dispatch(request, *args, **kwargs)
+        print(p)
+        return p

@@ -90,7 +90,11 @@ class Observation(models.Model):
 class MachineInstance(models.Model):
     machine = models.ForeignKey(Machine)
 
+    name = models.TextField(default="")
+
     activation_url = models.URLField()
+
+    url_name = conf.MACHINEINSTANCE_DETAIL_URL_NAME
 
 
 class MachineInput(models.Model):

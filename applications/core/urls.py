@@ -199,6 +199,11 @@ urlpatterns += [
         procedure.Delete.as_view(),
         name=conf.PROCEDURE_DELETE_URL_NAME
     ),
+    url(
+        '^procedure/(?P<pk_procedure>\d+)/activate-machine/(?P<pk>\d+)/$',
+        procedure.Activate.as_view(),
+        name=conf.PROCEDURE_ACTIVATE_MACHINE_URL_NAME
+    ),
 ]
 
 from .views import machine_instance

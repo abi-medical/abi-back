@@ -37,6 +37,18 @@
                 </div>
             </div>
             <h2>
+                {% trans 'Available Machines' %}
+            </h2>
+                <ul>
+                    {% for machine in machines %}
+                        <li>
+                            <a href="{{ machine.activate_url_reverse }}">
+                                {{ machine.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            <h2>
                 {% trans 'Observations' %}
             </h2>
             <ul>
@@ -46,6 +58,7 @@
                     </li>
                 {% endfor %}
             </ul>
+
             <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}

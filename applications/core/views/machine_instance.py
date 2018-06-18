@@ -1,5 +1,9 @@
+import requests
+
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.utils.translation import ugettext_lazy as _
+
 
 from base import views as base_views
 
@@ -74,3 +78,22 @@ class Delete(mixins.Administrator, base_views.BaseDeleteView):
 
     def get_success_url(self):
         return reverse_lazy(conf.MACHINEINSTANCE_LIST_URL_NAME)
+
+
+class Activate(
+    # mixins.Specialist,
+    Detail
+):
+    template_name = "core/machine_instance/activation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(Activate, self).get_context_data(**kwargs)
+
+        response = requests.get(self.get_object().activation_url)
+
+        context['activation_status'] = conf.MACHINEINSTANCE_ACTIVATED_MESSAGE \
+            if response.status_code == 200 \
+            else \
+            conf.MACHINEINSTANCE_UNACTIVATED_MESSAGE
+
+        return context
