@@ -43,6 +43,7 @@ class Detail(mixins.Administrator, base_views.BaseDetailView):
     Detail of a MachineInstance
     """
     model = models.MachineInstance
+    template_name = "core/machineinstance/detail.html"
 
     def __init__(self):
         super(Detail, self).__init__()
