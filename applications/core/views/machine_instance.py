@@ -3,7 +3,7 @@ import requests
 from django.core.urlresolvers import reverse_lazy
 
 from base import views as base_views
-
+from .base_view import BaseCreateView
 from .. import (
     models,
     forms,
@@ -22,7 +22,7 @@ class List(mixins.Administrator, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, base_views.BaseCreateView):
+class Create(mixins.Administrator, BaseCreateView):
     """
     Create a MachineInstance
     """

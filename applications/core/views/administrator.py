@@ -4,6 +4,7 @@ from django import http
 
 
 from base import views as base_views
+from .base_view import BaseCreateView
 
 from applications.authentication import (
     mixins as authentication_mixins
@@ -30,7 +31,7 @@ class List(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseListVie
 class Create(
     authentication_mixins.SuperAdminRequiredMixin,
     mixins.AddPermissionsOnSave,
-    base_views.BaseCreateView,
+    BaseCreateView,
 ):
     """
     Create a Administrator
