@@ -6,9 +6,7 @@
 
 {% block content %}
     <div class="container center">
-        <div class="row">
-            <h1>{% trans 'Log in' %} </h1>
-        </div>
+
         {% if user.is_authenticated %}
             {% if user.is_anonymous %}
                 {% trans 'Please activate your account'%}
@@ -28,14 +26,40 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                <form class="col s12" method="POST" action="{% url 'log_in' %}">
+                <div class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Sign In</div>
+                              {% if password_reset_allowed %}
+                                   <div style="float:right; font-size: 80%; position: relative; top:-10px">
+                                    <a class="left"  href="{% url 'password_reset' %}">
+                                       {% trans 'Forgot password?' %}
+
+                                    </a>
+                                  </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="panel-body">
+                             <form class="col s12 form-signin" method="POST" action="{% url 'log_in' %}">
                     {%  csrf_token %}
 
-                    {% for input in form %}
-                        <label for="{{ input.name }}">{{ input.label }}</label>
-                        {{ input }}
-                    {% endfor %}
-                    <button type="submit" class="btn waves-effect waves-light">
+                    <div class="form-group">
+                         <label for="username">Username</label>
+                        <input name="username" id="id_username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                         <label for="password">Password</label>
+                        <input name="password" id="id_password" class="form-control" type="password">
+                    </div>
+{#                    {% for input in form %}#}
+{#                        <div class="form-group">#}
+{#                             <label for="{{ input.name }}">{{ input.label }}</label>#}
+{#                             {{ input }}#}
+{#                        </div>#}
+{##}
+{#                    {% endfor %}#}
+                    <button type="submit" class="btn btn-success btn-lg">
                         {% trans 'Log in' %}
                         <i class="mdi-content-send right"></i>
                     </button>
@@ -45,18 +69,30 @@
                             <input type="hidden" name="next" value="/" />
                     {% endif %}
                     <br/>
-                    {% if password_reset_allowed %}
-                        <a class="left"  href="{% url 'password_reset' %}">
-                           {% trans 'Forgot password?' %}
-                        </a>
-                    {% endif %}
-                    {% if registration_allowed %}
-                        <a class="right" href="{% url 'sign_up' %}">
-                            {% trans 'Sign up' %}
-                        </a>
-                    {% endif %}
+
+                   {% if registration_allowed %}
+                    <div class="form-group">
+                        <div class="col-md-12 control">
+                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                Don't have an account!
+
+                                <a class="right" href="{% url 'sign_up' %}">
+                                    {% trans 'Sign up' %}
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                      {% endif %}
                     <!--<br/>-->
                 </form>
+                    </div>
+
+                </div>
+                </div>
+
+
             </div>
         {% endif %}
     </div>
