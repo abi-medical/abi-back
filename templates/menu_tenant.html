@@ -69,22 +69,22 @@
                 </li>
             </ul>
         </li>
-{#        <li>#}
-{#            <a>#}
-{#                <i class="fa fa-cogs"></i>#}
-{#                {% trans 'Appointments' %}#}
-{#                <span class="fa fa-chevron-down"></span>#}
-{#            </a>#}
-{#            <ul class="nav child_menu">#}
-{#                <li>#}
-{#                    {% if perms.appointment.add_appointment %}#}
-{#                        <a href="{% url 'APPOINTMENT_list' %}">#}
-{#                            {% trans 'Appointments' %}#}
-{#                        </a>#}
-{#                    {% endif %}#}
-{#                </li>#}
-{#            </ul>#}
-{#        </li>#}
+        <li>
+            <a>
+                <i class="fa fa-cogs"></i>
+                {% trans 'Appointments' %}
+                <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu">
+                <li>
+                    {% if perms.appointment.add_appointment %}
+                        <a href="{% url 'APPOINTMENT_list' %}">
+                            {% trans 'Appointments' %}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
 
     </ul>
 </div>
