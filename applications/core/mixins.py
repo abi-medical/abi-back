@@ -65,7 +65,7 @@ class Patient(object):
 class Secretary(UserRolePermission):
     model = models.Secretary
 
-    def get_specialist(self):
+    def get_secretary(self):
         return models.Secretary.objects.get(pk=self.request.user.id)
 
 
@@ -85,3 +85,8 @@ class AddPermissionsOnSave(object):
                 pass
         return http.HttpResponseRedirect(self.get_success_url())
 
+
+class Procedure(object):
+
+    def get_procedure(self):
+        return models.Procedure.objects.get(pk=self.kwargs.get("pk_procedure", 0))

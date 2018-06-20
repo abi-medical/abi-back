@@ -1,3 +1,5 @@
+import json
+
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import edit
@@ -12,7 +14,8 @@ from . import (
 from .. import (
     models,
     forms,
-    conf
+    conf,
+    mixins
 )
 
 
@@ -129,10 +132,28 @@ class Delete(LoginRequiredMixin, PermissionRequiredMixin, BaseDeleteView):
         return reverse_lazy(conf.PROCEDURE_LIST_URL_NAME)
 
 
-class Activate(machine_instance.Activate):
+class Activate(
+    mixins.Procedure,
+    machine_instance.Activate
+):
+    template_name = "core/procedure/machine_instance_activation.html"
 
     def dispatch(self, request, *args, **kwargs):
         print("Before calling super")
         p = super(Activate, self).dispatch(request, *args, **kwargs)
         print(p)
         return p
+
+    def get_context_data(self, **kwargs):
+        context = super(Activate, self).get_context_data(**kwargs)
+
+        if context['response'].status_code == 200:
+            json_body = context['response'].json()
+            context['text'] = json_body['text']
+        return context
+
+    def get_payload(self):
+        return {
+            'machine_instance': self.get_object().id,
+            'procedure': self.get_procedure().id
+        }

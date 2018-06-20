@@ -37,7 +37,7 @@ class Create(
     form_class = forms.Secretary
     permissions_to_add = [
         'add_patient',
-        'add_procedure'
+        'appointments.add_appointment'
     ]
 
     def __init__(self):

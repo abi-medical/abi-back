@@ -81,6 +81,7 @@ TENANT_APPS = [
     # Custom apps
 
     'applications.core',
+    'applications.appointments',
 ]
 
 INSTALLED_APPS = list(set(SHARED_APPS + TENANT_APPS))
