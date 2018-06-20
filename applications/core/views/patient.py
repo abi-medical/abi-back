@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django import http
 
 from base import views as base_views
-from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
+from .base_view import BaseCreateView, BaseUpdateView, BaseDeleteView
 
 from .. import (
     models,
