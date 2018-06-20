@@ -12,3 +12,9 @@ class BaseUpdateView(base_views.BaseUpdateView):
 
     def __init__(self, *args, **kwargs):
         super(BaseUpdateView, self).__init__(*args, **kwargs)
+
+class BaseDeleteView(base_views.BaseDeleteView):
+    template_name = "custom_delete/delete.html"
+
+    def __init__(self, *args, **kwargs):
+        super(BaseDeleteView, self).__init__(*args, **kwargs)
