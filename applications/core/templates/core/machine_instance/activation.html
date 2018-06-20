@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+    <h1>
+        {% trans 'Activating Machine ' %} {{ element.name }}
+    </h1>
+
+    <h3>
+        {{ activation_status }}
+    </h3>
+{% endblock %}

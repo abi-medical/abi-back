@@ -86,7 +86,7 @@ class Activate(
     def get_context_data(self, **kwargs):
         context = super(Activate, self).get_context_data(**kwargs)
 
-        response = requests.get(self.get_object().activation_url)
+        response = requests.post(self.get_object().activation_url)
 
         context['activation_status'] = conf.MACHINEINSTANCE_ACTIVATED_MESSAGE \
             if response.status_code == 200 \
