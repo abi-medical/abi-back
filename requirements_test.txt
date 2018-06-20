@@ -6,3 +6,4 @@ raven==6.8.0
 django-storages==1.6.6
 six==1.11.0
 djangorestframework==3.8.2
+requests==2.19.1
