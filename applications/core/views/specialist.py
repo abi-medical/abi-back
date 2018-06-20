@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from base import views as base_views
-
+from .base_view import BaseCreateView
 from .. import (
     models,
     forms,
@@ -24,7 +24,7 @@ class List(mixins.Administrator, base_views.BaseListView):
 class Create(
     mixins.Administrator,
     mixins.AddPermissionsOnSave,
-    base_views.BaseCreateView,
+    BaseCreateView,
 ):
     """
     Create a Specialist

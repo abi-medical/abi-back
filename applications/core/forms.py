@@ -14,8 +14,8 @@ class Administrator(forms.ModelForm):
         ]
 
         widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-group'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-group'})
+            'username': forms.TextInput(attrs={'class': 'form-control  col-md-7 col-xs-12'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control  col-md-7 col-xs-12'})
         }
 
     def save(self, commit=True):
@@ -59,10 +59,10 @@ class Machine(forms.ModelForm):
             'code'
         ]
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-group'}),
-            'description': forms.TextInput(attrs={'class': 'form-group'}),
-            'type': forms.TextInput(attrs={'class': 'form-group'}),
-            'code': forms.TextInput(attrs={'class': 'form-group'}),
+            'name': forms.TextInput(attrs={'class': 'form-control  col-md-7 col-xs-12'}),
+            'description': forms.TextInput(attrs={'class': 'form-control  col-md-7 col-xs-12'}),
+            'type': forms.TextInput(attrs={'class': 'form-control  col-md-7 col-xs-12'}),
+            'code': forms.TextInput(attrs={'class': 'form-control  col-md-7 col-xs-12'}),
         }
 
 

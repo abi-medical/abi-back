@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import http
 
 from base import views as base_views
+from .base_view import BaseCreateView
 
 from .. import (
     models,
@@ -30,7 +31,7 @@ class List(PermissionRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, base_views.BaseCreateView):
+class Create(mixins.Administrator, BaseCreateView):
     """
     Create a Patient
     """

@@ -4,7 +4,7 @@ from django.views.generic import edit
 from django import http
 
 from base import views as base_views
-
+from .base_view import BaseCreateView
 from . import (
     machine_instance
 )
@@ -26,7 +26,7 @@ class List(LoginRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateView):
+class Create(LoginRequiredMixin, PermissionRequiredMixin, BaseCreateView):
     """
     Create a Procedure
     """
