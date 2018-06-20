@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 
 from base import views as base_views
 
-from .base_view import BaseCreateView
+from .base_view import BaseCreateView,BaseUpdateView
 
 from .. import (
     models,
@@ -50,7 +50,7 @@ class Detail(mixins.Administrator, base_views.BaseDetailView):
         super(Detail, self).__init__()
 
 
-class Update(mixins.Administrator, base_views.BaseUpdateView):
+class Update(mixins.Administrator, BaseUpdateView):
     """
     Update a Machine
     """
