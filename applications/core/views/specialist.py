@@ -15,10 +15,20 @@ class List(mixins.Administrator, base_views.BaseListView):
     """
     List all Specialists
     """
+    template_name = "core/specialist/list.html"
     queryset = models.Specialist.objects.all()
 
     def __init__(self):
         super(List, self).__init__()
+
+    def get_context_data(self, **kwargs):
+        context = super(List, self).get_context_data(**kwargs)
+
+        context['report_with_patients_url_reversed'] = reverse_lazy(
+            conf.SPECIALIST_WITH_PATIENTS_URL_NAME
+        )
+
+        return context
 
 
 class Create(
