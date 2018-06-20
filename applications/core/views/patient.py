@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import http
 
 from base import views as base_views
-from .base_view import BaseCreateView
+from .base_view import BaseCreateView,BaseUpdateView
 
 from .. import (
     models,
@@ -79,7 +79,7 @@ class Detail(PermissionRequiredMixin, base_views.BaseDetailView):
         )
 
 
-class Update(mixins.Administrator, base_views.BaseUpdateView):
+class Update(mixins.Administrator, BaseUpdateView):
     """
     Update a Patient
     """

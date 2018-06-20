@@ -4,7 +4,7 @@ from django import http
 
 
 from base import views as base_views
-from .base_view import BaseCreateView
+from .base_view import BaseCreateView,BaseUpdateView
 
 from applications.authentication import (
     mixins as authentication_mixins
@@ -63,7 +63,7 @@ class Detail(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseDetai
         super(Detail, self).__init__()
 
 
-class Update(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseUpdateView):
+class Update(authentication_mixins.SuperAdminRequiredMixin, BaseUpdateView):
     """
     Update a Administrator
     """
