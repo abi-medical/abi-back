@@ -62,6 +62,13 @@ class Patient(object):
         return models.Patient.objects.get(pk=self.kwargs.get("pk_patient", 0))
 
 
+class Secretary(UserRolePermission):
+    model = models.Secretary
+
+    def get_specialist(self):
+        return models.Secretary.objects.get(pk=self.request.user.id)
+
+
 class AddPermissionsOnSave(object):
     permissions_to_add = []
 

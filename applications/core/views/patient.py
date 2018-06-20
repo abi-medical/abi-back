@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django import http
 
 from base import views as base_views
@@ -31,13 +31,16 @@ class List(PermissionRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, BaseCreateView):
+class Create(LoginRequiredMixin, PermissionRequiredMixin, BaseCreateView):
     """
     Create a Patient
     """
     model = models.Patient
     fields = None
     form_class = forms.Patient
+    permission_required = [
+        'core.add_patient'
+    ]
 
     def __init__(self):
         super(Create, self).__init__()

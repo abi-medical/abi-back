@@ -49,6 +49,12 @@ class Patient(Administrator):
         ]
 
 
+class Secretary(Administrator):
+
+    class Meta(Administrator.Meta):
+        model = models.Secretary
+
+
 class Machine(forms.ModelForm):
     class Meta:
         model = models.Machine
@@ -93,6 +99,8 @@ class SimpleObservation(forms.ModelForm):
         fields = [
             'observation',
         ]
+
+
 class MachineInstance(forms.ModelForm):
     class Meta:
         model = models.MachineInstance
@@ -105,9 +113,5 @@ class MachineInput(forms.ModelForm):
         fields = '__all__'
 
 
-class MachineInput(forms.ModelForm):
-    class Meta:
-        model = models.MachineInput
-        fields = '__all__'
 
 

@@ -269,3 +269,34 @@ urlpatterns += [
 ]
 
 
+from .views import secretary
+
+urlpatterns += [
+    # secretary
+    url(
+        '^secretary/$',
+        secretary.List.as_view(),
+        name=conf.SECRETARY_LIST_URL_NAME
+    ),
+    url(
+        '^secretary/create/$',
+        secretary.Create.as_view(),
+        name=conf.SECRETARY_CREATE_URL_NAME
+    ),
+    url(
+        '^secretary/(?P<pk>\d+)/$',
+        secretary.Detail.as_view(),
+        name=conf.SECRETARY_DETAIL_URL_NAME
+    ),
+    url(
+        '^secretary/(?P<pk>\d+)/update/$',
+        secretary.Update.as_view(),
+        name=conf.SECRETARY_UPDATE_URL_NAME
+    ),
+    url(
+        '^secretary/(?P<pk>\d+)/delete/$',
+        secretary.Delete.as_view(),
+        name=conf.SECRETARY_DELETE_URL_NAME
+    ),
+]
+

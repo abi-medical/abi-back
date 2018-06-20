@@ -30,6 +30,13 @@
                         </a>
                     {% endif %}
                 </li>
+                <li>
+                    {% if perms.core.add_secretary %}
+                        <a href="{% url 'SECRETARY_list' %}">
+                            {% trans 'Secretary' %}
+                        </a>
+                    {% endif %}
+                </li>
             </ul>
         </li>
         <li>
