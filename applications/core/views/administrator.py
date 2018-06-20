@@ -4,7 +4,7 @@ from django import http
 
 
 from base import views as base_views
-from .base_view import BaseCreateView,BaseUpdateView
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
 
 from applications.authentication import (
     mixins as authentication_mixins
@@ -80,7 +80,7 @@ class Update(authentication_mixins.SuperAdminRequiredMixin, BaseUpdateView):
         })
 
 
-class Delete(authentication_mixins.SuperAdminRequiredMixin, base_views.BaseDeleteView):
+class Delete(authentication_mixins.SuperAdminRequiredMixin, BaseDeleteView):
     """
     Delete a Administrator
     """
