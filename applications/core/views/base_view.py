@@ -6,3 +6,9 @@ class BaseCreateView(base_views.BaseCreateView):
 
     def __init__(self, *args, **kwargs):
         super(BaseCreateView, self).__init__(*args, **kwargs)
+
+class BaseUpdateView(base_views.BaseUpdateView):
+    template_name = "custom_update/update.html"
+
+    def __init__(self, *args, **kwargs):
+        super(BaseUpdateView, self).__init__(*args, **kwargs)
