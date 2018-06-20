@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from base import views as base_views
-from .base_view import BaseCreateView,BaseUpdateView
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
 from .. import (
     models,
     forms,
@@ -69,7 +69,7 @@ class Update(mixins.Administrator, PermissionRequiredMixin, BaseUpdateView):
         })
 
 
-class Delete(mixins.Administrator, PermissionRequiredMixin, base_views.BaseDeleteView):
+class Delete(mixins.Administrator, PermissionRequiredMixin, BaseDeleteView):
     """
     Delete a Treatment
     """

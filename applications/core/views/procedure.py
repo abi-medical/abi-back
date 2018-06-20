@@ -4,7 +4,7 @@ from django.views.generic import edit
 from django import http
 
 from base import views as base_views
-from .base_view import BaseCreateView,BaseUpdateView
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
 from . import (
     machine_instance
 )
@@ -113,7 +113,7 @@ class Update(LoginRequiredMixin, PermissionRequiredMixin, BaseUpdateView):
         })
 
 
-class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteView):
+class Delete(LoginRequiredMixin, PermissionRequiredMixin, BaseDeleteView):
     """
     Delete a Procedure
     """
