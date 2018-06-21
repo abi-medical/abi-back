@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from base import views as base_views
-
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
 from .. import (
     models,
     forms,
@@ -15,16 +15,26 @@ class List(mixins.Administrator, base_views.BaseListView):
     """
     List all Specialists
     """
+    template_name = "core/specialist/list.html"
     queryset = models.Specialist.objects.all()
 
     def __init__(self):
         super(List, self).__init__()
 
+    def get_context_data(self, **kwargs):
+        context = super(List, self).get_context_data(**kwargs)
+
+        context['report_with_patients_url_reversed'] = reverse_lazy(
+            conf.SPECIALIST_WITH_PATIENTS_URL_NAME
+        )
+
+        return context
+
 
 class Create(
     mixins.Administrator,
     mixins.AddPermissionsOnSave,
-    base_views.BaseCreateView,
+    BaseCreateView,
 ):
     """
     Create a Specialist
@@ -56,7 +66,7 @@ class Detail(mixins.Administrator, base_views.BaseDetailView):
         super(Detail, self).__init__()
 
 
-class Update(mixins.Administrator, base_views.BaseUpdateView):
+class Update(mixins.Administrator, BaseUpdateView):
     """
     Update a Specialist
     """
@@ -73,7 +83,7 @@ class Update(mixins.Administrator, base_views.BaseUpdateView):
         })
 
 
-class Delete(mixins.Administrator, base_views.BaseDeleteView):
+class Delete(mixins.Administrator, BaseDeleteView):
     """
     Delete a Specialist
     """

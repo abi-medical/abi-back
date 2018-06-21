@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load input_checker %}
+{% block content %}
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>{% trans 'Create' %} {{ model_name }}</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br>
+                 <form method="POST" enctype="multipart/form-data" class="">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="non-field-errors">
+                        {% for err in form.non_field_errors %}
+                            <p class="form-error">{{ err }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% for input in form %}
+                    <div class="row">
+                    {% if input.errors %}
+                        {{ input.errors }}
+                    {% endif %}
+                    </div>
+                    <div class="form-group row">
+                        {%  if input|is_checkbox %}
+                            <div class="">
+
+                                <label for="{{ input.auto_id }}">
+                                    {{ input }}
+                                    {{ input.label }}
+                                </label>
+                            </div>
+                        {% elif input|is_select%}
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ input.label }}</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                {{ input }}
+                            </div>
+
+                        {% elif input|is_file%}
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">{{ input.label }}</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ input }}
+                                </div>
+                        {% elif input|is_text_area%}
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ input.name }}">{{ input.label }}</label><br>
+                                 <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ input }}
+                                </div>
+                        {% else %}
+
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="{{ input.name }}">{{ input.label }}</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    {{ input }}
+                                </div>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+                <div class="actions">
+
+                    <a href="javascript:window.history.back();">
+                        <div class="btn btn-default">
+                                Back
+                        </div>
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        {% trans 'create' %}
+                    </button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -34,6 +34,14 @@ class Patient(auth_models.User):
         super(Patient, self).__init__(*args, *kwargs)
 
 
+class Secretary(auth_models.User):
+
+    url_name = conf.SECRETARY_DETAIL_URL_NAME
+
+    def __init__(self, *args, **kwargs):
+        super(Secretary, self).__init__(*args, *kwargs)
+
+
 class PatientAssignHistory(models.Model):
     patient_fk = models.ForeignKey(Patient)
     specialist_fk = models.ForeignKey(Specialist)
@@ -90,7 +98,11 @@ class Observation(models.Model):
 class MachineInstance(models.Model):
     machine = models.ForeignKey(Machine)
 
+    name = models.TextField(default="")
+
     activation_url = models.URLField()
+
+    url_name = conf.MACHINEINSTANCE_DETAIL_URL_NAME
 
 
 class MachineInput(models.Model):

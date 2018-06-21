@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from base import views as base_views
-from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
+
 from .. import (
     models,
     forms,
@@ -13,73 +13,83 @@ from .. import (
 
 class List(mixins.Administrator, base_views.BaseListView):
     """
-    List all Treatments
+    List all Secretarys
     """
-    queryset = models.Treatment.objects.all()
+    queryset = models.Secretary.objects.all()
 
     def __init__(self):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, PermissionRequiredMixin, BaseCreateView):
+class Create(
+    mixins.Administrator,
+    mixins.AddPermissionsOnSave,
+    base_views.BaseCreateView
+):
     """
-    Create a Treatment
+    Create a Secretary
     """
-    model = models.Treatment
+    model = models.Secretary
     permission_required = (
-        'core.add_treatment'
+        'core.add_secretary'
     )
-    fields = '__all__'
+    fields = None
+    form_class = forms.Secretary
+    permissions_to_add = [
+        'add_patient',
+        'appointments.add_appointment'
+    ]
 
     def __init__(self):
         super(Create, self).__init__()
 
     def get_success_url(self):
-        return reverse_lazy(conf.TREATMENT_DETAIL_URL_NAME, kwargs={
+        return reverse_lazy(conf.SECRETARY_DETAIL_URL_NAME, kwargs={
             'pk': self.object.id
         })
 
 
 class Detail(mixins.Administrator, base_views.BaseDetailView):
     """
-    Detail of a Treatment
+    Detail of a Secretary
     """
-    model = models.Treatment
+    model = models.Secretary
 
     def __init__(self):
         super(Detail, self).__init__()
 
 
-class Update(mixins.Administrator, PermissionRequiredMixin, BaseUpdateView):
+class Update(mixins.Administrator, base_views.BaseUpdateView):
     """
-    Update a Treatment
+    Update a Secretary
     """
-    model = models.Treatment
-    fields = '__all__'
+    model = models.Secretary
+    fields = None
+    form_class = forms.Secretary
     permission_required = (
-        'core.change_treatment'
+        'core.change_secretary'
     )
 
     def __init__(self):
         super(Update, self).__init__()
 
     def get_success_url(self):
-        return reverse_lazy(conf.TREATMENT_DETAIL_URL_NAME, kwargs={
+        return reverse_lazy(conf.SECRETARY_DETAIL_URL_NAME, kwargs={
             'pk': self.object.id
         })
 
 
-class Delete(mixins.Administrator, PermissionRequiredMixin, BaseDeleteView):
+class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteView):
     """
-    Delete a Treatment
+    Delete a Secretary
     """
-    model = models.Treatment
+    model = models.Secretary
     permission_required = (
-        'core.delete_treatment'
+        'core.delete_secretary'
     )
 
     def __init__(self):
         super(Delete, self).__init__()
 
     def get_success_url(self):
-        return reverse_lazy(conf.TREATMENT_LIST_URL_NAME)
+        return reverse_lazy(conf.SECRETARY_LIST_URL_NAME)

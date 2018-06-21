@@ -1,8 +1,9 @@
 from django.core.urlresolvers import reverse_lazy
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django import http
 
 from base import views as base_views
+from .base_view import BaseCreateView, BaseUpdateView, BaseDeleteView
 
 from .. import (
     models,
@@ -30,13 +31,16 @@ class List(PermissionRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(mixins.Administrator, base_views.BaseCreateView):
+class Create(LoginRequiredMixin, PermissionRequiredMixin, BaseCreateView):
     """
     Create a Patient
     """
     model = models.Patient
     fields = None
     form_class = forms.Patient
+    permission_required = [
+        'core.add_patient'
+    ]
 
     def __init__(self):
         super(Create, self).__init__()
@@ -78,7 +82,7 @@ class Detail(PermissionRequiredMixin, base_views.BaseDetailView):
         )
 
 
-class Update(mixins.Administrator, base_views.BaseUpdateView):
+class Update(mixins.Administrator, BaseUpdateView):
     """
     Update a Patient
     """
@@ -95,7 +99,7 @@ class Update(mixins.Administrator, base_views.BaseUpdateView):
         })
 
 
-class Delete(mixins.Administrator, base_views.BaseDeleteView):
+class Delete(mixins.Administrator, BaseDeleteView):
     """
     Delete a Patient
     """

@@ -1,14 +1,21 @@
+import json
+
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import edit
 from django import http
 
 from base import views as base_views
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
+from . import (
+    machine_instance
+)
 
 from .. import (
     models,
     forms,
-    conf
+    conf,
+    mixins
 )
 
 
@@ -22,7 +29,7 @@ class List(LoginRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateView):
+class Create(LoginRequiredMixin, PermissionRequiredMixin, BaseCreateView):
     """
     Create a Procedure
     """
@@ -59,6 +66,19 @@ class Detail(LoginRequiredMixin, base_views.BaseDetailView, edit.ProcessFormView
             procedure=self.get_object()
         )
 
+        context['machines'] = models.MachineInstance.objects.filter(
+            machine=self.get_object().treatment_fk.machine
+        )
+
+        for machine in context['machines']:
+            machine.activate_url_reverse = reverse_lazy(
+                conf.PROCEDURE_ACTIVATE_MACHINE_URL_NAME,
+                kwargs={
+                    'pk_procedure': self.get_object().id,
+                    'pk': machine.id
+                }
+            )
+
         return context
 
     def form_valid(self, form):
@@ -77,7 +97,7 @@ class Detail(LoginRequiredMixin, base_views.BaseDetailView, edit.ProcessFormView
         )
 
 
-class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateView):
+class Update(LoginRequiredMixin, PermissionRequiredMixin, BaseUpdateView):
     """
     Update a Procedure
     """
@@ -96,7 +116,7 @@ class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateV
         })
 
 
-class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteView):
+class Delete(LoginRequiredMixin, PermissionRequiredMixin, BaseDeleteView):
     """
     Delete a Procedure
     """
@@ -110,3 +130,30 @@ class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteV
 
     def get_success_url(self):
         return reverse_lazy(conf.PROCEDURE_LIST_URL_NAME)
+
+
+class Activate(
+    mixins.Procedure,
+    machine_instance.Activate
+):
+    template_name = "core/procedure/machine_instance_activation.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        print("Before calling super")
+        p = super(Activate, self).dispatch(request, *args, **kwargs)
+        print(p)
+        return p
+
+    def get_context_data(self, **kwargs):
+        context = super(Activate, self).get_context_data(**kwargs)
+
+        if context['response'].status_code == 200:
+            json_body = context['response'].json()
+            context['text'] = json_body['text']
+        return context
+
+    def get_payload(self):
+        return {
+            'machine_instance': self.get_object().id,
+            'procedure': self.get_procedure().id
+        }

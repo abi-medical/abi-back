@@ -44,6 +44,14 @@ urlpatterns = [
             ""
         )
     ),
+    url(
+        r'^appointments/',
+        (
+            "applications.appointments.urls",
+            "appointments",
+            ""
+        )
+    ),
 
     url(
         r'^api/v1/',

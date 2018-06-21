@@ -3,7 +3,6 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12">
-
             <h1>
                 {{ element }} {% trans 'Of class' %} {{ model_name }}
             </h1>
@@ -36,35 +35,6 @@
                     </table>
                 </div>
             </div>
-            <h2>
-                {% trans 'Available Machines' %}
-            </h2>
-                <ul>
-                    {% for machine in machines %}
-                        <li>
-                            <a href="{{ machine.activate_url_reverse }}">
-                                {{ machine.name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            <h2>
-                {% trans 'Observations' %}
-            </h2>
-            <ul>
-                {% for observation in observations %}
-                    <li>
-                        {{ observation.observation }}
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">{% trans 'Save' %}</button>
-            </form>
-
             <div class="actions">
                 <a href="javascript:window.history.back();">
                     <button class="btn btn-default">
@@ -81,9 +51,12 @@
                             {% trans 'Update' %}
                     </button>
                 </a>
-            </div>
 
+                <button class="btn btn-success">
+                        {% trans 'Start Machine' %}
+                </button>
+
+            </div>
         </div>
     </div>
-
 {% endblock %}

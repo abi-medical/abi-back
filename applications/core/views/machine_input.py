@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from base import views as base_views
-
+from .base_view import BaseCreateView,BaseUpdateView,BaseDeleteView
 from .. import (
     models,
     forms,
@@ -20,7 +20,7 @@ class List(LoginRequiredMixin, base_views.BaseListView):
         super(List, self).__init__()
 
 
-class Create(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseCreateView):
+class Create(LoginRequiredMixin, PermissionRequiredMixin, BaseCreateView):
     """
     Create a MachineInput
     """
@@ -49,7 +49,7 @@ class Detail(LoginRequiredMixin, base_views.BaseDetailView):
         super(Detail, self).__init__()
 
 
-class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateView):
+class Update(LoginRequiredMixin, PermissionRequiredMixin, BaseUpdateView):
     """
     Update a MachineInput
     """
@@ -68,7 +68,7 @@ class Update(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseUpdateV
         })
 
 
-class Delete(LoginRequiredMixin, PermissionRequiredMixin, base_views.BaseDeleteView):
+class Delete(LoginRequiredMixin, PermissionRequiredMixin, BaseDeleteView):
     """
     Delete a MachineInput
     """

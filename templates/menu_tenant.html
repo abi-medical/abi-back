@@ -4,7 +4,7 @@
     <ul class="nav side-menu">
         <li>
             <a>
-                <i class="fa fa-home"></i>
+                <i class="fa fa-user"></i>
                 {% trans 'Users' %}
                 <span class="fa fa-chevron-down"></span>
             </a>
@@ -30,11 +30,18 @@
                         </a>
                     {% endif %}
                 </li>
+                <li>
+                    {% if perms.core.add_secretary %}
+                        <a href="{% url 'SECRETARY_list' %}">
+                            {% trans 'Secretary' %}
+                        </a>
+                    {% endif %}
+                </li>
             </ul>
         </li>
         <li>
             <a>
-                <i class="fa fa-home"></i>
+                <i class="fa fa-cogs"></i>
                 {% trans 'Settings' %}
                 <span class="fa fa-chevron-down"></span>
             </a>
@@ -57,6 +64,22 @@
                     {% if perms.core.add_treatment %}
                         <a href="{% url 'TREATMENT_list' %}">
                             {% trans 'Treatment' %}
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a>
+                <i class="fa fa-cogs"></i>
+                {% trans 'Appointments' %}
+                <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu">
+                <li>
+                    {% if perms.appointment.add_appointment %}
+                        <a href="{% url 'APPOINTMENT_list' %}">
+                            {% trans 'Appointments' %}
                         </a>
                     {% endif %}
                 </li>
