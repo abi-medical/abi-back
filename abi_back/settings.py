@@ -25,7 +25,7 @@ SECRET_KEY = '49x7rj859gjcz(a*dj!75+8lrusnd3(_th@_w!b*3dzu5=&z-q'
 # SECURITY WARNING: don't run with debug turned on in production!
 ENV = os.environ.get('ENV', "DEVELOPMENT")
 DEBUG = os.environ.get('DEBUG', "False") == "True"
-ABI_REGISTER_ROUTE_53 = os.environ.get('DEBUG', "False") == "True"
+ABI_REGISTER_ROUTE_53 = os.environ.get('ABI_REGISTER_ROUTE_53', "False") == "True"
 
 MAIN_HOST = os.environ.get("MAIN_HOST", "localhost")
 
